@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <title>Deafdef</title>
+  <!-- <link rel="stylesheet" href="styles/main.css" type="text/css"> -->
+  <!-- include your cdn or angular.min.js file at the top, because {{ references like these }} will show up briefly before
+  the library is loaded if you don't. Omega won't let you run the file from their server. So use a CDN.-->
+  <style type="text/css">
+    /*
+        Karl Swedberg's progressive enhancement technique for preventing
+        elements hidden with javascript from flashing on large documents.
+        Clever, use of css specificity over-rides and a little burst of
+        vanilla js before jQuery loads.
+    */
+    .js {display: none;}
+  </style>
+  <script type="text/javascript">
+    document.documentElement.className = 'js';
+  </script>
+    <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+  <!-- <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script> -->
+    <script src="scripts/app.js" type="text/javascript"></script>
+
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body ng-app="toDoListApp">
+
+  <!-- Jake Added ng-init while trying to solve the bridging issue between firebase and angular.... Its probably unneccessary. -->
+  <div ng-controller="mainCtrl" class="list">
+    <div class="actions" ng-hide="started">
+      <!-- <button ng-click="setWords()">loadshit</button> -->
+      <!-- editing = !editing basically functions as a toggle. It changes editing from false, to true, to false. -->
+      <h1><a href="" ng-click="setWords()">START</a></h1>
+    </div>
+
+    <div class="container" id="container">
+      <img src="hands/A.png" ng-show="showA" class="letter" id="a">
+      <img src="hands/B.png" ng-show="showB" class="letter" id="b">
+      <img src="hands/C.png" ng-show="showC" class="letter" id="c">
+      <img src="hands/D.png" ng-show="showD" class="letter" id="d">
+      <img src="hands/E.png" ng-show="showE" class="letter" id="e">
+      <img src="hands/F.png" ng-show="showF" class="letter" id="f">
+      <img src="hands/G.png" ng-show="showG" class="letter" id="g">
+      <img src="hands/H.png" ng-show="showH" class="letter" id="h">
+      <img src="hands/I.png" ng-show="showI" class="letter" id="i">
+      <img src="hands/J.png" ng-show="showJ" class="letter" id="j">
+      <img src="hands/K.png" ng-show="showK" class="letter" id="k">
+      <img src="hands/L.png" ng-show="showL" class="letter" id="l">
+      <img src="hands/M.png" ng-show="showM" class="letter" id="m">
+      <img src="hands/N.png" ng-show="showN" class="letter" id="n">
+      <img src="hands/O.png" ng-show="showO" class="letter" id="o">
+      <img src="hands/P.png" ng-show="showP" class="letter" id="p">
+      <img src="hands/Q.png" ng-show="showQ" class="letter" id="q">
+      <img src="hands/R.png" ng-show="showR" class="letter" id="r">
+      <img src="hands/S.png" ng-show="showS" class="letter" id="s">
+      <img src="hands/T.png" ng-show="showT" class="letter" id="t">
+      <img src="hands/U.png" ng-show="showU" class="letter" id="u">
+      <img src="hands/V.png" ng-show="showV" class="letter" id="v">
+      <img src="hands/W.png" ng-show="showW" class="letter" id="w">
+      <img src="hands/X.png" ng-show="showX" class="letter" id="x">
+      <img src="hands/Y.png" ng-show="showY" class="letter" id="y">
+      <img src="hands/Z.png" ng-show="showZ" class="letter" id="z">
+      <span ng-show="showRight" id="rightAnswer">{{ rightAnswers }} Correct!</span>
+      <span ng-show="showWrong" id="wrongAnswer">{{ wrongAnswers }} Incorrect</span>
+    </div>
+    <div class="submit">
+
+      <form>
+        <!-- <label for=""><input type="radio" class="answer" ng-model="answer" name="answer" id="answer">{{ words.definition }}</label> -->
+        <!-- <input id="answer" class="answer" type="text" ng-model="answer" name="answer"> -->
+        <input type="radio" id="answer[0]" name="answer" value="{{ definitions[0] }}" ng-click="input = 0">
+        <label for="answer[0]">{{ definitions[0] }}</label>
+
+        <input type="radio" id="answer[1]" name="answer" value="{{ definitions[1] }}" ng-click="input = 1">
+        <label for="answer[1]">{{ definitions[1] }}</label>
+
+        <input type="radio" id="answer[2]" name="answer" value="{{ definitions[2] }}" ng-click="input = 2">
+        <label for="answer[2]">{{ definitions[2] }}</label>
+
+        <input type="radio" id="answer[3]" name="answer" value="{{ definitions[3] }}" ng-click="input = 3">
+        <label for="answer[3]">{{ definitions[3] }}</label>
+
+        <button class="btn" ng-click="processInput()">Submit</button>
+      </form>
+    </div>
+
+  </div>
+  <!-- <script src="vendor/angular.min.js" type="text/javascript"></script> -->
+  <script src="scripts/app.js" type="text/javascript"></script>
+  <!-- <script src="scripts/fireBaseRef.js" type="text/javascript"></script> -->
+
+  <!-- app.js needs to be loaded before any subsequent angular files -->
+  <script>
+  var words, snapshot;
+  var messagesRef = new Firebase("https://sizzling-torch-3146.firebaseIO.com/Libraries");
+  messagesRef.once("value", function(allMessagesSnapshot) {
+    snapshot = allMessagesSnapshot;
+    //selects library.
+    words = allMessagesSnapshot.child("-KDeJimi5Lm_jmM7FVlL").val().words;
+  });
+  </script>
+  <style>
+  .js{
+    /*display all after load.*/
+    display:initial;
+  }
+  </style>
+</body>
+</html>

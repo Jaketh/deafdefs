@@ -1,0 +1,77 @@
+<html>
+  <head>
+    <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+  </head>
+  <body>
+    <div id='messagesDiv'></div>
+    <input type='text' id='libraryInput' placeholder='Library'>
+    <hr>
+    <fieldset id="words-input">
+      <legend>Words:</legend>
+      <!-- <form id="words-list"> -->
+        <div class="" id="words-list">
+          <div class="word-obj">
+            <input type="text" id="word[0]" placeholder="word"><br>
+            <input type="text" id="definition[0]" placeholder="definition"><br>
+          </div>
+        </div>
+        <button id="add-word"> + </button>
+      <!-- </form> -->
+    </fieldset>
+
+    <br>
+    <button id="submit">Submit</button>
+    <div id="results"></div>
+    <script>
+      var manyWords = [];
+      var i = 1;
+
+      document.getElementById('add-word').addEventListener('click', function() {
+        // var pushWord = document.getElementById("word[" + i + "]").value;
+        // var pushDef = document.getElementById("definition[" + i + "]").value;
+
+        // if (pushWord != "" && pushDef != "") {
+        //   manyWords[i] = {word: pushWord, definition: pushDef};
+        // }
+        // document.getElementById("words-list").innerHTML += '<div class="word-obj"><input type="text" id="word[' + i + ']" placeholder="word"><br><input type="text" id="definition[' + i + ']" placeholder="definition"><br></div>';
+        document.getElementById("words-list").insertAdjacentHTML("beforeend", '<div class="word-obj"><input type="text" id="word[' + i + ']" placeholder="word"><br><input type="text" id="definition[' + i + ']" placeholder="definition"><br></div>');
+        i++;
+      });
+
+      var myDataRef = new Firebase('https://sizzling-torch-3146.firebaseIO.com/Libraries');
+      document.getElementById('submit').addEventListener('click', function(){
+        var name = document.getElementById('libraryInput').value;
+        var wordId;
+        var defId;
+        var j = 0;
+        insertAt = 0;
+
+        while (j < i) {
+          wordId = "word[" + j + "]"; console.log(wordId);
+          defId = "definition[" + j + "]"; console.log(defId);
+          if (document.getElementById(wordId).value != "" && document.getElementById(defId).value != "") {
+            manyWords[insertAt] = {
+              word: document.getElementById(wordId).value,
+              definition: document.getElementById(defId).value
+            }
+            insertAt++;
+          }
+          j++;
+        }
+
+        // var word = document.getElementById('word').value;
+
+        // var definition = document.getElementById('definition').value;
+
+        for (var z = 0; z < manyWords.length; z++)
+          document.getElementById('results').innerHTML += "word[" + z + "] = " + manyWords[z].word + "<br />" + "definition[" + z + "] =" + manyWords[z].definition + "<br />";
+
+        myDataRef.push({
+            name: name,
+            words: manyWords
+          });
+
+      });
+    </script>
+  </body>
+</html>

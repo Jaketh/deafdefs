@@ -1,0 +1,146 @@
+*{
+  box-sizing:border-box;
+}
+body{
+  font-family:Helvetica, sans-serif;
+}
+ .letter {
+   padding: 0px;
+   color: #fff;
+   width: 350px;
+   border-radius: 100%;
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+ }
+
+ .container {
+   margin-top: 100px;
+   margin-bottom: 100px;
+   background: #000;
+   width: 400px;
+   height: 400px;
+   margin: auto;
+   position: relative;
+   background:#333;
+ }
+
+ .submit{
+   width:400px;
+   margin-left:auto;
+   margin-right:auto;
+
+ }
+ .answer{
+   height:50px;
+   width:50%;
+   float:left;
+   font-size:217.18%;
+   text-align:center;
+   border-radius: 0 0 0 15px;
+
+ }
+ .btn {
+   height:50px;
+   width:100%;
+   float:left;
+   font-size:217.18%;
+   background-color:#333;
+   color:white;
+   border-radius: 0 0 15px 15px;
+
+ }
+ .list{
+   text-align:center;
+ }
+ h1 {
+   width:400px;
+   margin:auto;
+   background-color:#2980b9;
+   border-radius: 15px 15px 0 0;
+   font-weight:normal;
+   height:50px;
+   padding-top:9px
+ }
+ a, a:hover, a:active, a:visited {
+   color:white;
+   text-decoration:none;
+
+ }
+
+ input[type="radio"]{
+   display:none;
+ }
+ label{
+   display:block;
+   padding:10px 0;
+   margin:0;
+   background-color:#333;
+   color:white;
+ }
+ input[type="radio"]:checked+label{
+     background:#2980b9;
+     width:100%;
+     border:1px solid #333;
+     display:block;
+     color:white;
+     padding:10px 0;
+ }
+ #rightAnswer{
+   display:inline-block;
+   position:absolute;
+   top:50%;
+   left:50%;
+   color:white;
+   background-color:#2980b9;
+   line-height:270px;
+   height:270px;
+   width:270px;
+   font-size:2em;
+   border-radius:100%;
+   transform: translate(-50%, -50%);
+ }
+ #wrongAnswer{
+   display:inline-block;
+   position:absolute;
+   top:50%;
+   left:50%;
+   color:white;
+   background-color:#c0392b;
+   line-height:270px;
+   height:270px;
+   width:270px;
+   font-size:2em;
+   border-radius:100%;
+   transform: translate(-50%, -50%);
+ }
+
+ .round-top{
+   border-radius:15px 15px 0 0;
+ }
+ @media screen and (max-width:768px){
+   .container, .submit, h1{
+     width: 100%;
+   }
+     .container {
+       margin-top: 100px;
+       margin-bottom: 100px;
+       background: #333;
+       width: 100%;
+       height: 320px;
+       margin: auto;
+       position: relative;
+     }
+     .letter {
+       padding: 0px;
+       color: #fff;
+       width: 270px;
+       border-radius: 100%;
+       position: absolute;
+       top: 50%;
+       left: 50%;
+       transform: translate(-50%, -50%);
+     }
+
+ }

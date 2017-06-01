@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>pull words example</title>
+      <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+</head>
+<body>
+<div id="list"></div>
+
+<div id="words"></div>
+<script>
+// var myDataRef = new Firebase('https://sizzling-torch-3146.firebaseIO.com/Libraries');
+//
+// myDataRef.on("value", function(snapshot) {
+//   console.log(snapshot.val());
+// }, function (errorObject) {
+//   console.log("The read failed: " + errorObject.code);
+// });
+
+var key, libraryName, snapshot;
+
+var messagesRef = new Firebase("https://sizzling-torch-3146.firebaseIO.com/Libraries");
+messagesRef.once("value", function(allMessagesSnapshot) {
+  snapshot = allMessagesSnapshot;
+  allMessagesSnapshot.forEach(function(messageSnapshot) {
+    // Will be called with a messageSnapshot for each child under the /messages/ node
+    key = messageSnapshot.key();  // e.g. "-JqpIO567aKezufthrn8"
+    libraryName = messageSnapshot.child("name").val();  // e.g. "barney"
+    // var text = messageSnapshot.child("def").val();  // e.g. "Welcome to Bedrock City!"
+    console.log(key + " " +  libraryName);
+    document.getElementById("list").insertAdjacentHTML("beforeend","<span id=\""+key+"\">" + libraryName + "</span><br>");
+    document.getElementById(key).onclick = selectLib;
+  });
+});
+
+function selectLib() {
+  console.log("this is " + this.id); //produces key on click.
+
+  //get it to print out the words array is good for today.
+  var tryIt = snapshot.child(this.id).val();
+  console.log(tryIt);
+  for (var i = 0; i < tryIt.words.length; i++) {
+    console.log(i);
+    document.getElementById("words").insertAdjacentHTML("beforeend", tryIt.words[i].word + "<br>" + tryIt.words[i].definition + "<br><br>");
+    console.log(tryIt.words[i]);
+  }
+
+
+  // Set Current Library. Pass it into the app.js.
+}
+
+</script>
+</body>
+</html>
